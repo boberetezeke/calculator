@@ -1,0 +1,12 @@
+<h1>Editing widget</h1>
+
+<%# InlineWidget.new(self, @widget, true).render %>
+
+<%= link_to 'Show', @widget %> |
+<%= link_to 'Back', widgets_path %>
+
+
+<script type="text/javascript">
+  //var widget_ruby = '<%= @widget.as_json.inspect.html_safe %>'
+  //Opal.WidgetController.$load_and_start(widget_ruby, "edit");
+</script>

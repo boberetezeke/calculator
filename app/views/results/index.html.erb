@@ -1,0 +1,13 @@
+<div class="main">
+  <div class="results">
+    <% @results.each do |result| %>
+      <div>
+        <% if result.result_type == 'value' %>
+          <%= result.value %>
+        <% else %>
+          <%= result.operation %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

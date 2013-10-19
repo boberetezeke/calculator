@@ -1,0 +1,30 @@
+<h1>Listing widgets</h1>
+
+<div id="stuff"></div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Color</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @widgets.each do |widget| %>
+      <tr>
+        <td><%= widget.name %></td>
+        <td><%= widget.color %></td>
+        <td><%= link_to 'Show', widget %></td>
+        <td><%= link_to 'Edit', edit_widget_path(widget) %></td>
+        <td><%= link_to 'Destroy', widget, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Widget', new_widget_path %>

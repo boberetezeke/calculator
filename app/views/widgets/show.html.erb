@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<%= InlineWidget.new(self, @widget, false).render %>
+
+<%= link_to 'Edit', edit_widget_path(@widget) %> |
+<%= link_to 'Back', widgets_path %>
+
+<script type="text/javascript">
+  var widget = Opal.parse("<%= @widget.as_json.inspect.html_safe %>")
+  Opal.WidgetController.$load_and_start(widget, "edit");
+</script>
