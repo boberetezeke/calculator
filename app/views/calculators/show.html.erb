@@ -1,39 +1,39 @@
 <div class="main">
   <div class="calculator">
     <%= form_for @calculator do |f| %>
-      <div>
+      <div class="accumulator">
         <%= @calculator.accumulator %> <%= @calculator.current_operation.present? ? "| #{@calculator.current_operation}" : "" %>
       </div>
       <div>
-        <%= f.text_field :current_entry %>
+        <%= f.text_field :current_entry, class: 'keypad-input' %>
       </div>
       <div>
-        <%= button_tag "clear", name: "key", value: "clear" %>
-        <%= link_to("tape", results_path(calculator_id: @calculator.id)) %>
+        <%= button_tag 'clear', class: 'two_wide_keypad', name: 'key', value: 'clear' %>
+        <span class="two_wide_link_button"><%= link_to('tape', results_path(calculator_id: @calculator.id), class: "link_button") %></span>
       </div>
       <div>
-        <%= button_tag "1", name: "key", value: "1" %>
-        <%= button_tag "2", name: "key", value: "2" %>
-        <%= button_tag "3", name: "key", value: "3" %>
-        <%= button_tag "+", name: "key", value: "+" %>
+        <%= button_tag '1', class: 'keypad', name: 'key', value: '1' %>
+        <%= button_tag '2', class: 'keypad', name: 'key', value: '2' %>
+        <%= button_tag '3', class: 'keypad', name: 'key', value: '3' %>
+        <%= button_tag '+', class: 'keypad', name: 'key', value: '+' %>
       </div>
       <div>
-        <%= button_tag "4", name: "key", value: "4" %>
-        <%= button_tag "5", name: "key", value: "5" %>
-        <%= button_tag "6", name: "key", value: "6" %>
-        <%= button_tag "-", name: "key", value: "-"  %>
+        <%= button_tag '4', class: 'keypad', name: 'key', value: '4' %>
+        <%= button_tag '5', class: 'keypad', name: 'key', value: '5' %>
+        <%= button_tag '6', class: 'keypad', name: 'key', value: '6' %>
+        <%= button_tag '-', class: 'keypad', name: 'key', value: '-'  %>
       </div>
       <div>
-        <%= button_tag "7", name: "key", value: "7"  %>
-        <%= button_tag "8", name: "key", value: "8"  %>
-        <%= button_tag "9", name: "key", value: "9"  %>
-        <%= button_tag "*", name: "key", value: "*"  %>
+        <%= button_tag '7', class: 'keypad', name: 'key', value: '7'  %>
+        <%= button_tag '8', class: 'keypad', name: 'key', value: '8'  %>
+        <%= button_tag '9', class: 'keypad', name: 'key', value: '9'  %>
+        <%= button_tag '*', class: 'keypad', name: 'key', value: '*'  %>
       </div>
       <div>
-        <%= button_tag "=", name: "key", value: "=" %>
-        <%= button_tag "0",   name: "key", value: "0"  %>
-        <%= button_tag ".",   name: "key", value: "."  %>
-        <%= button_tag "/",   name: "key", value: "/"  %>
+        <%= button_tag "=", class: "keypad", name: "key", value: "=" %>
+        <%= button_tag "0", class: "keypad", name: "key", value: "0"  %>
+        <%= button_tag ".", class: "keypad", name: "key", value: "."  %>
+        <%= button_tag "/", class: "keypad", name: "key", value: "/"  %>
       </div>
     <% end %>
   </div>  

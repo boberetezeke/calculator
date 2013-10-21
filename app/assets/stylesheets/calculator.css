@@ -7,3 +7,78 @@
 
 .results {
 }
+
+.two_wide_link_button {
+  width: 47%;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #ccc;
+  display: block;
+  margin: 1%;
+  float: left;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.link_button {
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;     
+  line-height: 40px;
+}
+
+.link_button .hover {
+}
+
+.two_wide_keypad {
+  width: 47%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ccc;
+  margin: 1%;
+  float: left;
+}
+
+.keypad {
+  width: 22%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ccc;
+  margin: 1%;
+}
+
+.accumulator {
+  margin: 1%;
+  width: 96%;
+  height: 30px;
+  background-color: #EEE;
+  line-height: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.keypad-input {
+  margin: 1%;
+  width: 96%;
+  height: 40px;
+}
+
+a.link_button:link {/* unvisited link */
+  background-color: #ccc;
+  color:#000000;
+}      
+a.link_button:visited {/* visited link */
+  background-color: #ccc;
+  color:#000000;
+}  
+a.link_button:hover {/* mouse over link */
+  background-color: #ccc;
+  color:#000000;
+}  
+a.link_button:active {/* selected link */
+  background-color: #ccc;
+  color:#000000;
+}  
