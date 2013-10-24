@@ -38,3 +38,21 @@
     <% end %>
   </div>  
 </div>
+
+<script type="text/javascript">
+  var calculator_hash = Opal.Hash.$new();
+  $(function() {
+    var calculator_json = JSON.parse('<%= @calculator.to_json.html_safe %>');
+    var key, value;
+    for (key in calculator_json) {
+      value = calculator_json[key];
+      if (value == null)
+        value = 0;
+      calculator_hash["$[]="](key, value);
+      console.log("after inserting key: " + key);
+      console.log("after inserting value: " + calculator_json[key]);
+      console.log(calculator_hash.$inspect());
+    }
+    var calculator = Opal.CalculatorController.Show.$new(calculator_hash);
+  });
+</script>
