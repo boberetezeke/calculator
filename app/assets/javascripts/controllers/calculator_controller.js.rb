@@ -12,10 +12,12 @@ module CalculatorController
         puts "old value = #{old_value}, new_value = #{new_value}"
         Element.find('#current_entry').value = new_value
       end
-      Element.find('#keypad-1').on(:click) do |event|
-        @calculator.current_entry += '1'
-        puts "in key 1 event handler"
-        false
+      (0..9).each do |key|
+        Element.find("#keypad-#{key}").on(:click) do |event|
+          @calculator.current_entry += key.to_s
+          puts "in key #{key} event handler"
+          false
+        end
       end
     end
   end
