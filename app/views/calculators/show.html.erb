@@ -5,16 +5,16 @@
         <%= @calculator.accumulator %> <%= @calculator.current_operation.present? ? "| #{@calculator.current_operation}" : "" %>
       </div>
       <div>
-        <%= f.text_field :current_entry, class: 'keypad-input' %>
+        <%= f.text_field :current_entry, class: 'keypad-input', id: 'current_entry' %>
       </div>
       <div>
         <%= button_tag 'clear', class: 'two_wide_keypad', name: 'key', value: 'clear' %>
         <span class="two_wide_link_button"><%= link_to('tape', results_path(calculator_id: @calculator.id), class: "link_button") %></span>
       </div>
       <div>
-        <%= button_tag '1', class: 'keypad', name: 'key', value: '1' %>
-        <%= button_tag '2', class: 'keypad', name: 'key', value: '2' %>
-        <%= button_tag '3', class: 'keypad', name: 'key', value: '3' %>
+        <%= button_tag '1', id: 'keypad-1', class: 'keypad', name: 'key', value: '1' %>
+        <%= button_tag '2', id: 'keypad-2', class: 'keypad', name: 'key', value: '2' %>
+        <%= button_tag '3', id: 'keypad-3', class: 'keypad', name: 'key', value: '3' %>
         <%= button_tag '+', class: 'keypad', name: 'key', value: '+' %>
       </div>
       <div>
@@ -40,19 +40,7 @@
 </div>
 
 <script type="text/javascript">
-  var calculator_hash = Opal.Hash.$new();
   $(function() {
-    var calculator_json = JSON.parse('<%= @calculator.to_json.html_safe %>');
-    var key, value;
-    for (key in calculator_json) {
-      value = calculator_json[key];
-      if (value == null)
-        value = 0;
-      calculator_hash["$[]="](key, value);
-      console.log("after inserting key: " + key);
-      console.log("after inserting value: " + calculator_json[key]);
-      console.log(calculator_hash.$inspect());
-    }
-    var calculator = Opal.CalculatorController.Show.$new(calculator_hash);
+    Opal.CalculatorController.Show.$new(json2hash('<%= @calculator.to_json.html_safe %>'));
   });
 </script>

@@ -15,5 +15,6 @@
 // require jquery
 // require jquery_ujs
 // require turbolinks
+//= require json2hash
 //= require erb2
 //= require_tree .
