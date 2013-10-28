@@ -8,7 +8,7 @@ gem 'sqlite3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
-#gem 'opal-erb'
+gem 'opal-erb'
 gem 'opal-rails'
 #gem 'opal-jquery'
 

@@ -18,3 +18,4 @@
 //= require json2hash
 //= require erb2
 //= require_tree .
+//= require views/calculators/accumulator.opalerb

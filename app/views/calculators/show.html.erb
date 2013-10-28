@@ -1,8 +1,8 @@
 <div class="main">
   <div class="calculator">
     <%= form_for @calculator do |f| %>
-      <div class="accumulator">
-        <%= @calculator.accumulator %> <%= @calculator.current_operation.present? ? "| #{@calculator.current_operation}" : "" %>
+      <div class="accumulator" id="accumulator">
+        <%= render partial: 'accumulator', locals: {calculator: @calculator} %>
       </div>
       <div>
         <%= f.text_field :current_entry, class: 'keypad-input', id: 'current_entry' %>
@@ -15,32 +15,32 @@
         <%= button_tag '1', id: 'keypad-1',      class: 'keypad', name: 'key', value: '1' %>
         <%= button_tag '2', id: 'keypad-2',      class: 'keypad', name: 'key', value: '2' %>
         <%= button_tag '3', id: 'keypad-3',      class: 'keypad', name: 'key', value: '3' %>
-        <%= button_tag '+', id: 'keypad-plus',   class: 'keypad', name: 'key', value: '+' %>
+        <%= button_tag '+', id: 'keypad-plus',   class: 'keypad', name: 'key', value: 'plus' %>
       </div>
       <div>
         <%= button_tag '4', id: 'keypad-4',      class: 'keypad', name: 'key', value: '4' %>
         <%= button_tag '5', id: 'keypad-5',      class: 'keypad', name: 'key', value: '5' %>
         <%= button_tag '6', id: 'keypad-6',      class: 'keypad', name: 'key', value: '6' %>
-        <%= button_tag '-', id: 'keypad-minus',  class: 'keypad', name: 'key', value: '-'  %>
+        <%= button_tag '-', id: 'keypad-minus',  class: 'keypad', name: 'key', value: 'minus'  %>
       </div>
       <div>
         <%= button_tag '7', id: 'keypad-7',      class: 'keypad', name: 'key', value: '7'  %>
         <%= button_tag '8', id: 'keypad-8',      class: 'keypad', name: 'key', value: '8'  %>
         <%= button_tag '9', id: 'keypad-9',      class: 'keypad', name: 'key', value: '9'  %>
-        <%= button_tag '*', id: 'keypad-times',  class: 'keypad', name: 'key', value: '*'  %>
+        <%= button_tag '*', id: 'keypad-times',  class: 'keypad', name: 'key', value: 'times'  %>
       </div>
       <div>
-        <%= button_tag "=", id: 'keypad-equal',  class: "keypad", name: "key", value: "=" %>
+        <%= button_tag "=", id: 'keypad-equal',  class: "keypad", name: "key", value: "equal" %>
         <%= button_tag "0", id: 'keypad-0',      class: "keypad", name: "key", value: "0"  %>
-        <%= button_tag ".", id: 'keypad-dot',    class: "keypad", name: "key", value: "."  %>
-        <%= button_tag "/", id: 'keypad-divide', class: "keypad", name: "key", value: "/"  %>
+        <%= button_tag ".", id: 'keypad-dot',    class: "keypad", name: "key", value: "dot"  %>
+        <%= button_tag "/", id: 'keypad-divide', class: "keypad", name: "key", value: "divide"  %>
       </div>
     <% end %>
   </div>  
 </div>
 
-<script type="text/javascript">
+<% content_for :script do %>
   $(function() {
     Opal.CalculatorController.Show.$new(json2hash('<%= @calculator.to_json.html_safe %>'));
   });
-</script>
+<% end %>

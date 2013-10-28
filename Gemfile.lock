@@ -56,6 +56,8 @@ GEM
       source_map
     opal-activesupport (0.0.4)
       opal (~> 0.4.2)
+    opal-erb (0.2.0)
+      opal (~> 0.4.1)
     opal-jquery (0.0.13)
       opal (>= 0.4.4)
     opal-rails (0.5.2)
@@ -131,6 +133,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
+  opal-erb
   opal-rails
   rails (= 4.0.0)
   sass-rails (~> 4.0.0)
