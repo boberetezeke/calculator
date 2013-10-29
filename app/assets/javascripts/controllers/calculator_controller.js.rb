@@ -12,13 +12,39 @@ module CalculatorController
         puts "old value = #{old_value}, new_value = #{new_value}"
         Element.find('#current_entry').value = new_value
       end
+
+      @calculator.on_change(:accumulator) do |old_value, new_value|
+        puts "accumulator new_value = #{new_value}"
+        render_accumulator
+      end
+
+      @calculator.on_change(:current_operation) do |old_value, new_value|
+        puts "current_operation new_value = #{new_value}"
+        render_accumulator
+      end
+
       (0..9).each do |key|
         Element.find("#keypad-#{key}").on(:click) do |event|
-          @calculator.current_entry += key.to_s
+          @calculator.handle_key(key.to_s)
           puts "in key #{key} event handler"
           false
         end
       end
+
+      %w{plus minus times divide clear equal}.each do |key|
+        puts "for key: #{key}"
+        Element.find("#keypad-#{key}").on(:click) do |event|
+          puts "operation key #{key} hit"
+          @calculator.handle_key(key.to_s)
+          false
+        end
+      end
+    end
+
+    def render_accumulator
+      value = Template["views/calculators/accumulator"].render(self)
+      puts "current_operation change: template value = #{value}"
+      Element.find("#accumulator").html = value
     end
   end
 end
