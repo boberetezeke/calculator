@@ -57,6 +57,17 @@ class Calculator < ActiveRecord::Base
     end
   end
 
+  OP_NAME_TO_SYMBOL = {
+    'plus'   => '+',
+    'minus'  => '-',
+    'times'  => '*',
+    'divide' => '/'
+  }
+
+  def self.operation_name_to_symbol(operation_name)
+    OP_NAME_TO_SYMBOL[operation_name]
+  end
+
   private
 
   def apply_operation(operation, value)
