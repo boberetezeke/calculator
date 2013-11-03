@@ -9,7 +9,6 @@ class CalculatorsController < ApplicationController
   end
 
   def update
-    sleep 10
     @calculator = Calculator.find(params[:id])
     @calculator.handle_key(params[:key])
     @calculator.save
