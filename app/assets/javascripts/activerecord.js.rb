@@ -171,8 +171,23 @@ module ActiveRecord
     end
 
     def push(table_name, record)
-      @tables[table_name] ||= []
-      @tables[table_name].push(record)
+      @tables[table_name] ||= {}
+      @tables[table_name][record.id] = record
+    end
+
+    def create(table_name, record)
+      next_id = @next_ids[table_name]
+      @next_ids[table_name] += 1
+      @tables[table_name][next_id] = record
+      return next_id
+    end
+
+    def update(table_name, record)
+      @tables[table_name][record.id] = record
+    end
+
+    def destroy(table_name, record)
+      @tables[table_name].delete(record.id)
     end
   end
 
@@ -227,6 +242,10 @@ module ActiveRecord
       @associations[name.to_s] = AssociationProxy.new(:belongs_to, options, @connection)
     end
     
+    def self.table_name
+      self.to_s + "s"
+    end
+
     def self.associations
       @associations
     end
@@ -236,7 +255,7 @@ module ActiveRecord
     end
 
     def self.connection
-      @connection
+      @connection || super
     end
 
     def self.connection=(connection)
@@ -279,9 +298,12 @@ module ActiveRecord
       super(*args)
     end
 
-    def initialize(*args)
-      @attributes = {}      
+    def initialize(initializers={})
+      @attributes = {}
       @associations = {}
+      initializers.each do |initializer, value|
+        @attributes[initializer.to_s] = value
+      end
     end
 
     def save
@@ -290,6 +312,28 @@ module ActiveRecord
       end.each do |assoc|
         @attributes["#{name}_id"] = self.id
       end 
+
+      if self.id
+        @connection.update(table_name, self)
+      else
+        @attributes['id'] = @connection.create(table_name, self)
+      end
+    end
+
+    def destroy
+      @connection.destroy(table_name, self)
+    end
+
+    def id
+      @attributes['id']
+    end
+
+    def table_name
+      self.class.table_name
+    end
+
+    def connection
+      self.class.connection
     end
   end
 end
