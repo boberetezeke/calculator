@@ -1,0 +1,1 @@
+../../../../spec/activerecord_spec.rb
