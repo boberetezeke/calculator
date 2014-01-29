@@ -3,6 +3,19 @@
 
 puts "hello, there"
 
+class A
+  class B
+  end
+  def x
+    eval("1+2")
+  end
+end
+
+a = Object.const_get("A")
+b = A.const_get("B")
+puts "a = #{a.inspect}"
+puts "b = #{b.inspect}"
+
 class World
   def self.render_erb
     puts "in render_erb"

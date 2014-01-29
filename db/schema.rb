@@ -11,13 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019164935) do
+ActiveRecord::Schema.define(version: 20131106152921) do
+
+  create_table "as", force: true do |t|
+    t.integer "x"
+    t.integer "y"
+  end
+
+  create_table "bs", force: true do |t|
+    t.integer "x"
+    t.integer "y"
+  end
 
   create_table "calculators", force: true do |t|
     t.string "guid"
     t.float  "accumulator"
     t.string "current_entry"
     t.string "current_operation"
+  end
+
+  create_table "cs", force: true do |t|
+    t.integer "b_id"
+    t.integer "x"
+    t.integer "y"
+  end
+
+  create_table "ds", force: true do |t|
+    t.integer "c_id"
+    t.integer "e_id"
+    t.integer "x"
+    t.integer "y"
+  end
+
+  create_table "es", force: true do |t|
+    t.integer "x"
+    t.integer "y"
   end
 
   create_table "memory_locations", force: true do |t|

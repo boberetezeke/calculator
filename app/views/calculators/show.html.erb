@@ -40,7 +40,9 @@
 </div>
 
 <% content_for :script do %>
+  var application;
   $(function() {
-    Opal.CalculatorController.Show.$new(json2hash('<%= @calculator.to_json.html_safe %>'));
+    application = Opal.Application.$new(window.location.pathname, Opal.Calculator.$new_from_json(json2hash('<%= @calculator.to_json.html_safe %>')))
+    //Opal.CalculatorController.Show.$new(json2hash('<%= @calculator.to_json.html_safe %>'));
   });
 <% end %>

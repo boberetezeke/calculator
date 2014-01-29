@@ -1,3 +1,4 @@
+=begin
 #require 'spec_helper'
 require 'activerecord'
 
@@ -230,4 +231,5 @@ describe "ActiveRecord::Base" do
     end
   end
 end
+=end
  

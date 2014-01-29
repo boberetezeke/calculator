@@ -3,9 +3,15 @@ module CalculatorController
   end
 
   class Show
-    def initialize(calculator_hash)
-      puts "calculator loaded: #{calculator_hash}"
-      @calculator = Calculator.new_from_json(calculator_hash)
+    def initialize(params)
+      @params = params
+      @calculator = Calculator.find(params['id'])
+      #puts "calculator loaded: #{calculator_hash}"
+      #@calculator = Calculator.new_from_json(calculator_hash)
+    end
+
+    def add_bindings
+      @calculator.save
       puts "calculator.accumulator = #{@calculator.accumulator}"
 
       @calculator.on_change(:current_entry) do |old_value, new_value|
@@ -27,6 +33,7 @@ module CalculatorController
         Element.find("#keypad-#{key}").on(:click) do |event|
           @calculator.handle_key(key.to_s)
           puts "in key #{key} event handler"
+          #event.stop_propagation
           false
         end
       end
@@ -36,6 +43,7 @@ module CalculatorController
         Element.find("#keypad-#{key}").on(:click) do |event|
           puts "operation key #{key} hit"
           @calculator.handle_key(key.to_s)
+          #event.stop_propagation
           false
         end
       end

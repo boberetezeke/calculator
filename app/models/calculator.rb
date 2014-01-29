@@ -13,8 +13,8 @@ class Calculator < ActiveRecord::Base
     puts "in handle_key"
     case key
     when /^clear$/
-      #self.results << Result.create(result_type: 'operation', operation: '--clear--')
-      #self.results << Result.create(result_type: 'value', value: 0.0)
+      self.results << Result.new(result_type: 'operation', operation: '--clear--')
+      self.results << Result.new(result_type: 'value', value: 0.0)
       self.clear
     when /^\d$/
       puts "in number"
@@ -22,10 +22,10 @@ class Calculator < ActiveRecord::Base
     when /^equal$/
       puts "in equal"
       value = self.current_entry.to_f
-      #self.results << Result.create(result_type: 'value', value: value)
+      self.results << Result.new(result_type: 'value', value: value)
       apply_operation(self.current_operation, value)
-      #self.results << Result.create(result_type: 'operation', operation: '=')
-      #self.results << Result.create(result_type: 'value', value: self.accumulator)
+      self.results << Result.new(result_type: 'operation', operation: '=')
+      self.results << Result.new(result_type: 'value', value: self.accumulator)
       self.current_entry = ""
       self.current_operation = ""
     when /^(plus|minus|times|divide)$/
@@ -41,16 +41,16 @@ class Calculator < ActiveRecord::Base
       else
         puts "current operation present"
         if self.current_entry.present?
-          #self.results << Result.create(result_type: 'operation', operation: '---')
+          self.results << Result.new(result_type: 'operation', operation: '---')
           self.accumulator = value
           accumulator_changed = true
         end
       end
       if accumulator_changed
-        #self.results << Result.create(result_type: 'value', value: self.accumulator)
+        self.results << Result.new(result_type: 'value', value: self.accumulator)
       end
       self.current_operation = key
-      #self.results << Result.create(result_type: 'operation', operation: key)
+      self.results << Result.new(result_type: 'operation', operation: key)
       self.current_entry = ""
     else
       puts "in else case"

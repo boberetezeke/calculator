@@ -8,9 +8,14 @@ gem 'sqlite3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
-gem 'opal-erb'
-gem 'opal-rails'
-#gem 'opal-jquery'
+gem 'opal'
+gem 'opal-sprockets'
+gem 'opal-rspec'
+gem 'opal-jquery'
+#gem 'opal-rails', git: 'https://github.com/opal/opal-rails.git'
+gem 'opal-rails', path: '../opal-rails'
+gem 'opal-activerecord', path: '../opal-activerecord'
+#gem 'opal-irb', git: 'git@github.com:fkchang/opal-irb.git'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -33,6 +38,11 @@ gem 'jbuilder', '~> 1.2'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem "factory_girl_rails", "~> 4.0" 
 end
 
 # Use ActiveModel has_secure_password

@@ -17,5 +17,6 @@
 // require turbolinks
 //= require json2hash
 //= require erb2
+//= require 'active_record'
 //= require_tree .
 //= require views/calculators/accumulator.opalerb

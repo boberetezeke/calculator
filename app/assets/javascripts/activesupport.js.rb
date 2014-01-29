@@ -18,4 +18,8 @@ class String
   def blank?
     self == ""
   end
+
+  def singularize
+    /^(.*)s$/.match(self)[1]
+  end
 end
