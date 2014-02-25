@@ -9,7 +9,7 @@
       </div>
       <div>
         <%= button_tag 'clear', class: 'two_wide_keypad', name: 'key', value: 'clear' %>
-        <span class="two_wide_link_button"><%= link_to('tape', results_path(calculator_id: @calculator.id), class: "link_button") %></span>
+        <span class="two_wide_link_button"><%= link_to('tape', results_path(calculator_id: @calculator.id), class: "link_button", id: 'tape') %></span>
       </div>
       <div>
         <%= button_tag '1', id: 'keypad-1',      class: 'keypad', name: 'key', value: '1' %>
@@ -42,7 +42,7 @@
 <% content_for :script do %>
   var application;
   $(function() {
-    application = Opal.Application.$new(window.location.pathname, Opal.Calculator.$new_from_json(json2hash('<%= @calculator.to_json.html_safe %>')))
+    application = Opal.Application.$instance().$launch(window.location.pathname, Opal.Calculator.$new_from_json(json2hash('<%= @calculator.to_json.html_safe %>')))
     //Opal.CalculatorController.Show.$new(json2hash('<%= @calculator.to_json.html_safe %>'));
   });
 <% end %>

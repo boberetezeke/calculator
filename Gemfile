@@ -15,6 +15,7 @@ gem 'opal-jquery'
 #gem 'opal-rails', git: 'https://github.com/opal/opal-rails.git'
 gem 'opal-rails', path: '../opal-rails'
 gem 'opal-activerecord', path: '../opal-activerecord'
+gem 'opal-actionpack', path: '../opal-actionpack'
 #gem 'opal-irb', git: 'git@github.com:fkchang/opal-irb.git'
 
 # Use Uglifier as compressor for JavaScript assets

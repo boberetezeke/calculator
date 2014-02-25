@@ -1,6 +1,7 @@
 # Provides Template module for registering erb templates
 #require 'opal-template'
 
+=begin
 Template = {}
 
 class ERB
@@ -18,3 +19,4 @@ class ERB
     ctx.instance_eval(&@body)
   end
 end
+=end

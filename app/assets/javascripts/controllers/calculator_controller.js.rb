@@ -4,6 +4,7 @@ module CalculatorController
 
   class Show
     def initialize(params)
+      puts "Show#initialize"
       @params = params
       @calculator = Calculator.find(params['id'])
       #puts "calculator loaded: #{calculator_hash}"
@@ -11,6 +12,7 @@ module CalculatorController
     end
 
     def add_bindings
+      puts "add_bindings"
       @calculator.save
       puts "calculator.accumulator = #{@calculator.accumulator}"
 
@@ -47,10 +49,16 @@ module CalculatorController
           false
         end
       end
+      
+      Element.find("#tape").on(:click) do |event|
+        puts "tape clicked"
+        false
+      end
     end
 
     def render_accumulator
-      value = Template["views/calculators/accumulator"].render(self)
+      value = Template["views/calculators/partial"].render(self)
+      #value = Template["views/calculators/accumulator"].render(self)
       puts "current_operation change: template value = #{value}"
       Element.find("#accumulator").html = value
     end

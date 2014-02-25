@@ -12,11 +12,14 @@
 //
 //= require opal
 //= require opal_ujs
+//= require 'erb'
 // require jquery
 // require jquery_ujs
 // require turbolinks
 //= require json2hash
 //= require erb2
 //= require 'active_record'
+//= require 'action_pack'
 //= require_tree .
 //= require views/calculators/accumulator.opalerb
+//= require views/calculators/partial.opalerb
