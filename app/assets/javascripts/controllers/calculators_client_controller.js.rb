@@ -1,4 +1,4 @@
-module CalculatorController
+class CalculatorsController < ApplicationController
   class Base  #< ActionController::Base
   end
 
@@ -51,13 +51,19 @@ module CalculatorController
       end
       
       Element.find("#tape").on(:click) do |event|
-        puts "tape clicked"
+        Application.instance.go_to_route(results_path(calculator: self.id))
+=begin
+        value = Template["views/results/index"].
+        puts "results value = #{value}"
+        Element.find("#results")
+=end
         false
       end
     end
 
     def render_accumulator
-      value = Template["views/calculators/partial"].render(self)
+      template = Template["views/calculators/accumulator"]
+      value = template.render(self)
       #value = Template["views/calculators/accumulator"].render(self)
       puts "current_operation change: template value = #{value}"
       Element.find("#accumulator").html = value
