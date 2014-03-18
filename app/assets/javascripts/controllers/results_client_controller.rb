@@ -1,4 +1,4 @@
-class ResultsController < ApplicationController
+class ResultsClientController < ApplicationController
   class Base  #< ActionController::Base
   end
 
@@ -7,6 +7,10 @@ class ResultsController < ApplicationController
     end
 
     def add_bindings
+      Element.find("#back").on(:click) do |event|
+        Element.find("#results").hide
+        Element.find("#calculator").show
+      end
     end
   end
 end

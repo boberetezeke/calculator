@@ -1,13 +1,15 @@
-class CalculatorsController < ApplicationController
+class CalculatorsClientController < ApplicationController
   class Base  #< ActionController::Base
   end
 
-  class Show
+  class Show < ActionController::Base
     def initialize(params)
+      super
+
       puts "Show#initialize"
       @params = params
       @calculator = Calculator.find(params['id'])
-      #puts "calculator loaded: #{calculator_hash}"
+      puts "calculator loaded: #{@calculator.inspect}"
       #@calculator = Calculator.new_from_json(calculator_hash)
     end
 
@@ -49,14 +51,18 @@ class CalculatorsController < ApplicationController
           false
         end
       end
-      
+
       Element.find("#tape").on(:click) do |event|
-        Application.instance.go_to_route(results_path(calculator: self.id))
-=begin
-        value = Template["views/results/index"].
-        puts "results value = #{value}"
-        Element.find("#results")
-=end
+        begin
+          puts "tape clicked: @calculator = #{@calculator.inspect}"
+          instance = Application.instance
+          route = results_path(calculator_id: @calculator.id)
+          puts "route = #{route}"
+          instance.go_to_route(route, render_view: true, selector: "#results")
+          Element.find("#calculator").hide
+        rescue Exception => e
+          puts "Exception: #{e}"
+        end
         false
       end
     end

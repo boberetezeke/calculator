@@ -1,5 +1,5 @@
 <div class="main">
-  <div class="calculator">
+  <div id="calculator">
     <%= form_for @calculator do |f| %>
       <div class="accumulator" id="accumulator">
         <%= render partial: 'accumulator', locals: {calculator: @calculator} %>
@@ -37,12 +37,14 @@
       </div>
     <% end %>
   </div>  
+  <div id="results"></div>
 </div>
 
 <% content_for :script do %>
   var application;
   $(function() {
-    application = Opal.Application.$instance().$launch(window.location.pathname, Opal.Calculator.$new_from_json(json2hash('<%= @calculator.to_json.html_safe %>')))
+    application = Opal.CalculatorApplication.$instance().$launch(window.location.pathname, Opal.Calculator.$new_from_json(json2hash('<%= @calculator.to_json.html_safe %>')))
     //Opal.CalculatorController.Show.$new(json2hash('<%= @calculator.to_json.html_safe %>'));
   });
 <% end %>
+

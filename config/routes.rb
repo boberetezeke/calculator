@@ -1,6 +1,14 @@
 Test1::Application.routes.draw do
   resources :widgets
-  resources :calculators
+  resources :calculators do
+    collection do
+      get :stuff
+    end
+    member do
+      get :other_stuff
+    end
+  end
+
   resources :results
 
   # The priority is based upon order of creation: first created -> highest priority.

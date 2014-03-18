@@ -1,6 +1,7 @@
 class ResultsController < ApplicationController
   def index
-    @results = Calculator.find(params[:calculator_id]).results.reverse
+    @calculator = Calculator.find(params[:calculator_id])
+    @results = @calculator.results.reverse
   end
 
   def create
@@ -13,6 +14,6 @@ class ResultsController < ApplicationController
   private
 
   def result_params
-    params.require(:result).permit(:operation, :result_type)
+    #params.require(:result).permit(:operation, :result_type)
   end
 end

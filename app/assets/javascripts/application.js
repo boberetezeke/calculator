@@ -23,3 +23,4 @@
 //= require_tree .
 //= require views/calculators/accumulator.opalerb
 //= require views/calculators/partial.opalerb
+//= require views/results/index.opalerb
