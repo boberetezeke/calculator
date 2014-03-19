@@ -60,6 +60,7 @@ class CalculatorsClientController < ApplicationController
           puts "route = #{route}"
           instance.go_to_route(route, render_view: true, selector: "#results")
           Element.find("#calculator").hide
+          Element.find("#results").show
         rescue Exception => e
           puts "Exception: #{e}"
         end

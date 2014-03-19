@@ -10,6 +10,7 @@ class ResultsClientController < ApplicationController
       Element.find("#back").on(:click) do |event|
         Element.find("#results").hide
         Element.find("#calculator").show
+        false
       end
     end
   end
