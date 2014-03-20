@@ -67,6 +67,13 @@ class Calculator < ActiveRecord::Base
   def self.operation_name_to_symbol(operation_name)
     OP_NAME_TO_SYMBOL[operation_name]
   end
+=begin
+  def to_json
+    json = super
+    json["results"] = self.results.by_most_recent.limit(20)
+    json
+  end
+=end
 
   private
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106152921) do
+ActiveRecord::Schema.define(version: 20140319153827) do
 
   create_table "as", force: true do |t|
     t.integer "x"
@@ -53,10 +53,12 @@ ActiveRecord::Schema.define(version: 20131106152921) do
   end
 
   create_table "results", force: true do |t|
-    t.float   "value"
-    t.integer "calculator_id"
-    t.string  "result_type"
-    t.string  "operation"
+    t.float    "value"
+    t.integer  "calculator_id"
+    t.string   "result_type"
+    t.string   "operation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "widgets", force: true do |t|
