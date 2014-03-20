@@ -82,6 +82,7 @@ GEM
     opal-sprockets (0.3.0)
       opal (~> 0.5.0)
       sprockets
+    pg (0.17.1)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -160,6 +161,7 @@ DEPENDENCIES
   opal-rails
   opal-rspec
   opal-sprockets
+  pg
   rails (= 4.0.0)
   rspec-rails
   sass-rails (~> 4.0.0)
