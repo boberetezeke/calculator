@@ -1,11 +1,11 @@
 class CalculatorsController < ApplicationController
   def show
-    @calculator = Calculator.first
+    @calculator = Calculator.where(guid: params[:id]).first
   end
 
   def index
-    Calculator.create unless Calculator.first
-    redirect_to Calculator.first
+    calculator = Calculator.create(guid: SecureRandom.hex)
+    redirect_to calculator_path(id: calculator.guid)
   end
 
   def update
@@ -13,7 +13,7 @@ class CalculatorsController < ApplicationController
     @calculator.handle_key(params[:key])
     @calculator.save
 
-    redirect_to calculator_path(@calculator)
+    redirect_to calculator_path(id: @calculator.guid)
   end
 end
 

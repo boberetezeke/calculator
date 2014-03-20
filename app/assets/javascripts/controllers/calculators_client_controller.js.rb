@@ -8,7 +8,7 @@ class CalculatorsClientController < ApplicationController
 
       puts "Show#initialize"
       @params = params
-      @calculator = Calculator.find(params['id'])
+      @calculator = Calculator.where(guid: params['id']).first
       puts "calculator loaded: #{@calculator.inspect}"
       #@calculator = Calculator.new_from_json(calculator_hash)
     end

@@ -9,7 +9,7 @@
       </div>
       <div>
         <%= button_tag 'clear', class: 'two_wide_keypad', name: 'key', value: 'clear' %>
-        <span class="two_wide_link_button"><%= link_to('tape', results_path(calculator_id: @calculator.id), class: "link_button", id: 'tape') %></span>
+        <span class="two_wide_link_button"><%= link_to('tape', results_path(calculator_id: @calculator.guid), class: "link_button", id: 'tape') %></span>
       </div>
       <div>
         <%= button_tag '1', id: 'keypad-1',      class: 'keypad', name: 'key', value: '1' %>
