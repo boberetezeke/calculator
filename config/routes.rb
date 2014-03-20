@@ -11,6 +11,8 @@ Test1::Application.routes.draw do
 
   resources :results
 
+  root to: "calculators#index"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
