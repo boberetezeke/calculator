@@ -3,8 +3,12 @@ class CalculatorApplication < Application
   def initialize
     super
 
-    @memory_store.init_new_table("calculators")
-    @memory_store.init_new_table("results")
+    @store.init_new_table("calculators")
+    @store.init_new_table("results")
+  end
+
+  def get_store
+    ActiveRecord::LocalStorageStore.new(LocalStorage.new)
   end
 end
 
