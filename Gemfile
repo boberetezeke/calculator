@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -20,10 +20,10 @@ gem 'opal-sprockets'
 gem 'opal-rspec'
 gem 'opal-jquery'
 gem 'opal-rails'
-gem 'opal-activerecord'
-gem 'opal-actionpack'
-#gem 'opal-activerecord', path: '../opal-activerecord'
-#gem 'opal-actionpack', path: '../opal-actionpack'
+#gem 'opal-activerecord'
+#gem 'opal-actionpack'
+gem 'opal-activerecord', path: '../opal-activerecord'
+gem 'opal-actionpack', path: '../opal-actionpack'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
