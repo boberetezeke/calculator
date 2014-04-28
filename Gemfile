@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -11,6 +11,7 @@ group :development, :test do
 end
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 # Use SCSS for stylesheets
@@ -18,12 +19,16 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'opal'
 gem 'opal-sprockets'
 gem 'opal-rspec'
-gem 'opal-jquery'
+#gem 'opal-jquery'
+#gem 'opal-jquery', path: '../opal-jquery'
+gem 'opal-jquery', git: 'git@github.com:opal/opal-jquery.git' 
 gem 'opal-rails'
 #gem 'opal-activerecord'
+#gem 'opal-activerecord', path: '../opal-activerecord'
+gem 'opal-activerecord', git: 'git@github.com:boberetezeke/opal-activerecord.git'
 #gem 'opal-actionpack'
-gem 'opal-activerecord', path: '../opal-activerecord'
-gem 'opal-actionpack', path: '../opal-actionpack'
+#gem 'opal-actionpack', path: '../opal-actionpack'
+gem 'opal-actionpack', git: 'git@github.com:boberetezeke/opal-actionpack.git'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -52,8 +57,6 @@ group :test do
   gem 'rspec-rails'
   gem "factory_girl_rails", "~> 4.0" 
 end
-
-gem 'rails_12factor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

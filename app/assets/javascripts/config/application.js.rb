@@ -1,10 +1,28 @@
+module Kernel
+  def every interval, &block
+    callback = `function(){ #{block.call}; }`
+    `setInterval(callback, #{interval * 1000})`
+  end
+
+  def after delay, &block
+    callback = `function(){ #{block.call}; }`
+    `setTimeout(callback, #{delay * 1000})`
+  end
+end
+
+class Numeric
+  def seconds
+    self
+  end
+end
 
 class ObjectToUpdate
-  attr_reader :action, :object, :state
+  attr_accessor :action, :object, :state, :retry_count
   def initialize(action, object, state)
     @action = action
     @object = object
     @state = state
+    @retry_count = 0
   end
 end
 
@@ -28,23 +46,26 @@ class Updater
   #
   # NOTE: on delete, what about references to objects?
   # NOTE: how to do cascading delete
-  def initialize(application)
+  INITIALIZE_DEFAULTS = {max_retries: 5}
+  def initialize(application, options={})
+    options = INITIALIZE_DEFAULTS.merge(options)
     @application = application
     @object_queue = []
+    @max_retries = options[:max_retries]
   end
 
   def on_change(action, object)
-    object_to_update = ObjectToUpdate.new(action, record, :idle)
+    object_to_update = ObjectToUpdate.new(action, object, :idle)
 
     objects_queued_to_update = @object_queue.select{|ots| ots.object.id == object.id}
     if objects_queued_to_update.empty?
       @object_queue.push(object_to_update)
     else
-      first_in_queue = objects_queue_to_update.first
+      first_in_queue = objects_queued_to_update.first
 
       # UPDATE
       if object_to_update.action == :update
-        on_update_action(object_to_update)
+        on_update_action(object_to_update, first_in_queue)
 
       # INSERT
       elsif object_to_save.action == :insert
@@ -58,36 +79,64 @@ class Updater
     process_queue
   end
 
+  private
+
   def process_queue
+    puts "Updater#process_queue: #{@object_queue.size}"
     return if @object_queue.empty? || @object_queue.first.state != :idle
 
-    object_to_update = @object_queue.first
+    process_queue_entry(@object_queue.first)
+  end
+
+  def process_queue_entry(object_to_update)
     object_to_update.state = :updating
     object = object_to_update.object
    
-    root_url = application.url_for_object(object)
+    root_url = @application.url_for_object(object)
     root_url_with_id = "#{root_url}/#{object_to_update.object.id}"
+    object_key = @application.object_key_for_object(object)
 
-    case first_in_queue.action 
+    payload = {object_key => object.attributes}
+    headers = {"Accept" => 'application/json', "content-Type" => 'application/json'}
+    case object_to_update.action 
     when :insert
-      HTTP.post(root_url, object.attributes) { |response| handle_response(response) }
+      puts "POSTING(#{root_url}): object=#{object.attributes}"
+      HTTP.post(root_url, payload: payload, headers: headers) do |response| 
+        handle_response(response)
+      end
     when :update
-      HTTP.put(root_url_with_id, object.attributes) { |response| handle_response(response) }
+      puts "PUT(#{root_url_with_id}): object=#{object.attributes}"
+      HTTP.put(root_url_with_id, payload: payload, headers: headers) do |response| 
+        handle_response(response)
+      end
     when :delete
-      HTTP.delete(root_url_with_id) { |response| handle_response(response) }
+      puts "DELETE(#{root_url_with_id})"
+      HTTP.delete(root_url_with_id, headers: headers) do |response| 
+        handle_response(response)
+      end
     end
   end
 
   def handle_response(response)
-    if response.ok?
+    puts "response.status = #{response.status_code}"
+    if response.status_code.to_i == 200
+      puts "OK: response #{response}"
       @object_queue.shift
+      puts "OK: after remove head, process queue: #{@object_queue.size}"
+      process_queue if @object_queue.size > 0
     else
+      puts "ERROR: response #{response}"
       object_to_update = @object_queue.first
       object_to_update.retry_count += 1
       if object_to_update.retry_count >= @max_retries
+        puts "NO MORE TRIES: #{object_to_update.retry_count} > #{@max_retries}"
         @application.retry_count_hit
       else
-        process_queue
+        puts "RETRY # #{object_to_update.retry_count} in #{object_to_update.retry_count} seconds"
+        after object_to_update.retry_count.seconds do
+          object_to_update.state = :idle
+          process_queue_entry(object_to_update)
+        end
       end
     end
   end
@@ -138,14 +187,10 @@ class CalculatorApplication < Application
 
     @store.init_new_table("calculators")
     @store.init_new_table("results")
-
+    @updater = Updater.new(self)
     @store.on_change do |action, record|
       puts "CalculatorsApplication: action: #{action}, record: #{record}"
-      case action
-      when :update
-      when :insert
-      when :delete
-      end
+      @updater.on_change(action, record)
     end
   end
 
@@ -155,6 +200,7 @@ class CalculatorApplication < Application
 
   def retry_count_hit
     # go into offline mode
+    puts "ERROR: retry count hit"
   end
 
   def url_for_object(object)
@@ -162,6 +208,14 @@ class CalculatorApplication < Application
       return "/calculators"
     else
       return "/results"
+    end
+  end
+
+  def object_key_for_object(object)
+    if object.class == Calculator
+      return "calculator"
+    else
+      return "result"
     end
   end
 end

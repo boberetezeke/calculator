@@ -13,7 +13,7 @@ class ResultsController < ApplicationController
 
   private
 
-  def result_params
-    #params.require(:result).permit(:operation, :result_type)
+  if RUBY_ENGINE != "opal"
+  include ResultsControllerServer
   end
 end

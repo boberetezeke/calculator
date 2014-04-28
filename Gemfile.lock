@@ -1,13 +1,22 @@
-PATH
-  remote: ../opal-actionpack
+GIT
+  remote: git@github.com:boberetezeke/opal-actionpack.git
+  revision: bb095f77f2b72e8204815323ce34ab2fe7d6f9ce
   specs:
     opal-actionpack (0.0.2)
       opal (>= 0.5.0, < 1.0.0)
 
-PATH
-  remote: ../opal-activerecord
+GIT
+  remote: git@github.com:boberetezeke/opal-activerecord.git
+  revision: bb91c286f0699c8e4d57ca8c116db5976600c353
   specs:
     opal-activerecord (0.0.1)
+      opal (>= 0.5.0, < 1.0.0)
+
+GIT
+  remote: git@github.com:opal/opal-jquery.git
+  revision: 423476392de4ab94e1aed1194e84df54615ef9ab
+  specs:
+    opal-jquery (0.2.0)
       opal (>= 0.5.0, < 1.0.0)
 
 GEM
@@ -74,8 +83,6 @@ GEM
       source_map
     opal-activesupport (0.0.5)
       opal
-    opal-jquery (0.1.0)
-      opal (~> 0.5.0)
     opal-rails (0.6.2)
       jquery-rails
       opal (~> 0.5.0)
@@ -170,7 +177,7 @@ DEPENDENCIES
   opal
   opal-actionpack!
   opal-activerecord!
-  opal-jquery
+  opal-jquery!
   opal-rails
   opal-rspec
   opal-sprockets
