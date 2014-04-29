@@ -1,7 +1,7 @@
 <div class="main">
   <div class="results">
     <h1>Results</h1>
-    <%= link_to("Back", calculator_path(@calculator), id: 'back') %>
+    <%= link_to("Back", calculator_path(@calculator.guid), id: 'back') %>
     <% @results.each do |result| %>
       <div>
         <% if result.result_type == 'value' %>
