@@ -41,10 +41,8 @@
 </div>
 
 <% content_for :script do %>
-  var application;
   $(function() {
-    application = Opal.CalculatorApplication.$instance().$launch(window.location.pathname, Opal.Calculator.$new_from_json(json2hash('<%= @calculator.to_json.html_safe %>')))
-    //Opal.CalculatorController.Show.$new(json2hash('<%= @calculator.to_json.html_safe %>'));
+    Opal.CalculatorApplication.$instance().$launch('<%= @calculator.to_json(root: true, include: :results).html_safe %>')
   });
 <% end %>
 
