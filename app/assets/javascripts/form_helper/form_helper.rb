@@ -1,14 +1,3 @@
-require 'cgi'
-require 'action_view/helpers/date_helper'
-require 'action_view/helpers/tag_helper'
-require 'action_view/helpers/form_tag_helper'
-require 'action_view/helpers/active_model_helper'
-require 'action_view/model_naming'
-require 'active_support/core_ext/module/attribute_accessors'
-require 'active_support/core_ext/hash/slice'
-require 'active_support/core_ext/string/output_safety'
-require 'active_support/core_ext/string/inflections'
-
 module ActionView
   # = Action View Form Helpers
   module Helpers
@@ -107,12 +96,26 @@ module ActionView
     #     # error handling
     #   end
     #
+    #
+
+    # NOTE: Stolen from actionpack/lib/action_controller
+    module ModelNaming
+      # Converts the given object to an ActiveModel compliant one.
+      def convert_to_model(object)
+        object.respond_to?(:to_model) ? object.to_model : object
+      end
+
+      def model_name_from_record_or_class(record_or_class)
+        (record_or_class.is_a?(Class) ? record_or_class : convert_to_model(record_or_class).class).model_name
+      end
+    end
+
     # That's how you typically work with resources.
     module FormHelper
-      extend ActiveSupport::Concern
+      #extend ActiveSupport::Concern
 
       include FormTagHelper
-      include UrlHelper
+      #include UrlHelper
       include ModelNaming
 
       # Creates a form that allows the user to create or update the attributes
