@@ -1,5 +1,5 @@
 <div class="main">
-  <div class="results">
+  <div id="results">
     <h1>Results</h1>
     <%= link_to("Back", calculator_path(@calculator.guid), id: 'back') %>
     <% @results.each do |result| %>
@@ -12,4 +12,14 @@
       </div>
     <% end %>
   </div>
+
+  <div id="calculator">
+  </div>
 </div>
+
+
+<% content_for :script do %>
+  $(function() {
+    Opal.CalculatorApplication.$instance().$launch('<%= (@results + [@calculator]).to_json(root: true).html_safe %>')
+  });
+<% end %>
