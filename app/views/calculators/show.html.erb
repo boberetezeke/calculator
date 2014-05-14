@@ -2,7 +2,7 @@
   <div id="calculator">
     <%= form_for @calculator do |f| %>
       <div class="accumulator" id="accumulator">
-        <%= render partial: 'accumulator', locals: {calculator: @calculator} %>
+        <%# render partial: 'accumulator', locals: {calculator: @calculator} %>
       </div>
       <div>
         <%= f.text_field :current_entry, class: 'keypad-input', id: 'current_entry' %>
@@ -36,15 +36,12 @@
         <%= button_tag "/", id: 'keypad-divide', class: "keypad", name: "key", value: "divide"  %>
       </div>
     <% end %>
-  </div>  
+  </div>
   <div id="results"></div>
 </div>
 
 <% content_for :script do %>
-  var application;
   $(function() {
-    application = Opal.CalculatorApplication.$instance().$launch(window.location.pathname, Opal.Calculator.$new_from_json(json2hash('<%= @calculator.to_json.html_safe %>')))
-    //Opal.CalculatorController.Show.$new(json2hash('<%= @calculator.to_json.html_safe %>'));
+    Opal.CalculatorApplication.$instance().$launch('<%= @calculator.to_json(root: true, include: :results).html_safe %>')
   });
 <% end %>
-

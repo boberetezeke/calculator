@@ -36,6 +36,7 @@ class CalculatorsClientController < ApplicationController
       (0..9).each do |key|
         Element.find("#keypad-#{key}").on(:click) do |event|
           @calculator.handle_key(key.to_s)
+          @calculator.save
           puts "in key #{key} event handler"
           #event.stop_propagation
           false
@@ -47,6 +48,7 @@ class CalculatorsClientController < ApplicationController
         Element.find("#keypad-#{key}").on(:click) do |event|
           puts "operation key #{key} hit"
           @calculator.handle_key(key.to_s)
+          @calculator.save
           #event.stop_propagation
           false
         end
